@@ -24,7 +24,6 @@ export default function PhotographyPage() {
 const styles: Record<string, React.CSSProperties> = {
     main: {
         minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

@@ -30,15 +30,16 @@ const ITEMS = [...SOFTWARE, ...SOFTWARE, ...SOFTWARE];
 
 function Pill({ sw }: { sw: Software }) {
     return (
-        <div style={styles.pill}>
+        <div style={styles.pill} className="ticker-pill">
             {/* Icon */}
-            <div style={{ ...styles.iconWrap, borderColor: `${sw.color}44` }}>
+            <div style={{ ...styles.iconWrap, borderColor: `${sw.color}44` }} className="ticker-icon-wrap">
                 <img
                     src={sw.icon}
                     alt={sw.name}
                     width={20}
                     height={20}
                     style={styles.iconImg}
+                    className="ticker-icon"
                     onError={(e) => {
                         const el = e.currentTarget as HTMLImageElement;
                         el.style.display = 'none';
@@ -51,7 +52,7 @@ function Pill({ sw }: { sw: Software }) {
                 </div>
             </div>
             {/* Name */}
-            <span style={styles.name}>{sw.name}</span>
+            <span style={styles.name} className="ticker-name">{sw.name}</span>
         </div>
     );
 }
@@ -81,17 +82,28 @@ export default function SoftwareTicker() {
     }, []);
 
     return (
-        <div style={styles.wrapper}>
-            {/* Fade edges */}
-            <div style={styles.fadeLeft} />
-            <div style={styles.fadeRight} />
-            {/* Infinite track */}
-            <div style={styles.track} ref={trackRef}>
-                {ITEMS.map((sw, i) => (
-                    <Pill key={`${sw.id}-${i}`} sw={sw} />
-                ))}
+        <>
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (max-width: 768px) {
+                    .ticker-pill { padding: 4px 12px 4px 4px !important; gap: 8px !important; }
+                    .ticker-icon-wrap { width: 24px !important; height: 24px !important; border-radius: 8px !important; }
+                    .ticker-icon { width: 24px !important; height: 24px !important; }
+                    .ticker-name { font-size: 12px !important; }
+                    .ticker-fade { width: 40px !important; }
+                }
+            `}} />
+            <div style={styles.wrapper}>
+                {/* Fade edges */}
+                <div style={styles.fadeLeft} className="ticker-fade" />
+                <div style={styles.fadeRight} className="ticker-fade" />
+                {/* Infinite track */}
+                <div style={styles.track} ref={trackRef}>
+                    {ITEMS.map((sw, i) => (
+                        <Pill key={`${sw.id}-${i}`} sw={sw} />
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
@@ -108,7 +120,7 @@ const styles: Record<string, React.CSSProperties> = {
         top: 0,
         bottom: 0,
         width: '80px',
-        background: 'linear-gradient(to right, #252525, transparent)',
+        background: 'linear-gradient(to right, #000000, transparent)',
         zIndex: 2,
         pointerEvents: 'none',
     },
@@ -118,7 +130,7 @@ const styles: Record<string, React.CSSProperties> = {
         top: 0,
         bottom: 0,
         width: '80px',
-        background: 'linear-gradient(to left, #252525, transparent)',
+        background: 'linear-gradient(to left, #000000, transparent)',
         zIndex: 2,
         pointerEvents: 'none',
     },

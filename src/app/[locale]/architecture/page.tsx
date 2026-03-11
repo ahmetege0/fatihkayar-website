@@ -40,7 +40,6 @@ export default function ArchitecturePage() {
 const styles: Record<string, React.CSSProperties> = {
     main: {
         minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
         display: 'flex',
         flexDirection: 'column',
     },
@@ -57,6 +56,7 @@ const styles: Record<string, React.CSSProperties> = {
         letterSpacing: '0.01em',
         maxWidth: '620px',
         textAlign: 'center',
+        whiteSpace: 'pre-wrap',
     },
     /* Full viewport width — breaks out of any container */
     tickerSection: {

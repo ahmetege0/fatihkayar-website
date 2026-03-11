@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 
-// Graduation: June 16, 2027 at 00:00:00 local time
-const GRADUATION = new Date('2027-06-16T00:00:00');
+// Graduation: June 25, 2027 at 00:00:00 local time
+const GRADUATION = new Date('2027-06-25T00:00:00');
 
 type TimeLeft = {
     days: number;
@@ -36,10 +36,10 @@ type UnitProps = {
 function Unit({ value, label }: UnitProps) {
     return (
         <div style={styles.unit}>
-            <span className="font-ibm" style={styles.number}>
+            <span className="font-ibm gc-number" style={styles.number}>
                 {pad(value)}
             </span>
-            <span className="font-ibm" style={styles.label}>
+            <span className="font-ibm gc-label" style={styles.label}>
                 {label}
             </span>
         </div>
@@ -59,37 +59,49 @@ export default function GraduationCountdown() {
 
     const labels =
         locale === 'tr'
-            ? { days: 'gün', hours: 'saat', minutes: 'dakika', seconds: 'saniye', heading: 'mimar olmama kalan süre', date: '16 Haziran 2027' }
-            : { days: 'days', hours: 'hours', minutes: 'minutes', seconds: 'seconds', heading: 'until I become an architect', date: 'June 16, 2027' };
+            ? { days: 'gün', hours: 'saat', minutes: 'dakika', seconds: 'saniye', heading: 'mimar olmama kalan süre', date: '25 Haziran 2027' }
+            : { days: 'days', hours: 'hours', minutes: 'minutes', seconds: 'seconds', heading: 'until I become an architect', date: 'June 25, 2027' };
 
     return (
-        <section style={styles.section}>
-            {/* Heading */}
-            <p className="font-ibm" style={styles.heading}>
-                {labels.heading}
-            </p>
+        <>
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (max-width: 768px) {
+                    .gc-section { padding: 60px 20px 80px !important; }
+                    .gc-row { gap: 16px !important; }
+                    .gc-number { font-size: clamp(28px, 6vw, 42px) !important; }
+                    .gc-label { font-size: 8px !important; letter-spacing: 0.1em !important; }
+                    .gc-sep { font-size: clamp(20px, 4vw, 30px) !important; padding-top: 2px !important; }
+                    .gc-heading { font-size: 9px !important; letter-spacing: 0.15em !important; }
+                }
+            `}} />
+            <section style={styles.section} className="gc-section">
+                {/* Heading */}
+                <p className="font-ibm gc-heading" style={styles.heading}>
+                    {labels.heading}
+                </p>
 
-            {/* Counter row */}
-            <div style={styles.row}>
-                <Unit value={time.days} label={labels.days} />
-                <Separator />
-                <Unit value={time.hours} label={labels.hours} />
-                <Separator />
-                <Unit value={time.minutes} label={labels.minutes} />
-                <Separator />
-                <Unit value={time.seconds} label={labels.seconds} />
-            </div>
+                {/* Counter row */}
+                <div style={styles.row} className="gc-row">
+                    <Unit value={time.days} label={labels.days} />
+                    <Separator />
+                    <Unit value={time.hours} label={labels.hours} />
+                    <Separator />
+                    <Unit value={time.minutes} label={labels.minutes} />
+                    <Separator />
+                    <Unit value={time.seconds} label={labels.seconds} />
+                </div>
 
-            {/* Date note */}
-            <p className="font-ibm" style={styles.dateNote}>
-                {labels.date}
-            </p>
-        </section>
+                {/* Date note */}
+                <p className="font-ibm" style={styles.dateNote}>
+                    {labels.date}
+                </p>
+            </section>
+        </>
     );
 }
 
 function Separator() {
-    return <span style={styles.sep}>:</span>;
+    return <span style={styles.sep} className="gc-sep">:</span>;
 }
 
 const styles: Record<string, React.CSSProperties> = {

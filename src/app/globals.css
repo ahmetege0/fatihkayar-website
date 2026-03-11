@@ -7,7 +7,7 @@
 }
 
 :root {
-  --bg: #252525;
+  --bg: #000000;
   --text-primary: #f0f0f0;
   --text-dim: rgba(240, 240, 240, 0.45);
   --text-dim2: rgba(240, 240, 240, 0.18);
@@ -28,6 +28,7 @@ body {
   font-weight: 400;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* ---------- Typography ---------- */
