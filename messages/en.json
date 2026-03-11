@@ -1,0 +1,53 @@
+{
+    "nav": {
+        "name": "FATİH KAYAR"
+    },
+    "buttons": {
+        "linkedin": "LinkedIn",
+        "portfolio": "Adobe Portfolio",
+        "unsplash": "Unsplash",
+        "photography": "Photography"
+    },
+    "cards": {
+        "architecture": "ARCHITECTURE",
+        "academy": "ACADEMY",
+        "photography": "PHOTOGRAPHY"
+    },
+    "comingSoon": "Coming Soon",
+    "portfolio": {
+        "title": "Adobe Portfolio",
+        "status": "Coming Soon",
+        "back": "← Go Back"
+    },
+    "cv": {
+        "title": "CV",
+        "status": "Coming Soon",
+        "back": "← Go Back"
+    },
+    "photography": {
+        "title": "PHOTOGRAPHY",
+        "status": "Coming Soon",
+        "back": "← Go Back"
+    },
+    "academy": {
+        "title": "ACADEMY",
+        "status": "Coming Soon",
+        "back": "← Go Back"
+    },
+    "architecture": {
+        "title": "ARCHITECTURE",
+        "cv": "CV",
+        "about": "I am a 3rd year Architecture student at Yeditepe University. From an early interest in architecture, I have developed myself in architectural design and 3D modeling. Through student activities, I gained experience in teamwork, organization, and leadership. I aim to produce high-quality architectural projects by combining design-oriented thinking with technical skills.",
+        "tabs": {
+            "modeling": "2D / 3D Modeling",
+            "presentation": "Presentation / Graphics",
+            "visualization": "Visualization"
+        },
+        "levels": {
+            "instructor": "Instructor Level",
+            "advanced": "Advanced",
+            "intermediate": "Intermediate",
+            "beginner": "Beginner"
+        }
+    }
+}
