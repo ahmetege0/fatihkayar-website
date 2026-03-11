@@ -1,0 +1,53 @@
+{
+    "nav": {
+        "name": "FATİH KAYAR"
+    },
+    "buttons": {
+        "linkedin": "LinkedIn",
+        "portfolio": "Adobe Portfolio",
+        "unsplash": "Unsplash",
+        "photography": "Fotoğraf"
+    },
+    "cards": {
+        "architecture": "MİMARLIK",
+        "academy": "AKADEMİ",
+        "photography": "FOTOĞRAFÇILIK"
+    },
+    "comingSoon": "Çok Yakında",
+    "portfolio": {
+        "title": "Adobe Portfolio",
+        "status": "Çok Yakında",
+        "back": "← Geri Dön"
+    },
+    "cv": {
+        "title": "CV",
+        "status": "Çok Yakında",
+        "back": "← Geri Dön"
+    },
+    "photography": {
+        "title": "FOTOĞRAFÇILIK",
+        "status": "Çok Yakında",
+        "back": "← Geri Dön"
+    },
+    "academy": {
+        "title": "AKADEMİ",
+        "status": "Çok Yakında",
+        "back": "← Geri Dön"
+    },
+    "architecture": {
+        "title": "MİMARLIK",
+        "cv": "CV",
+        "about": "Yeditepe Üniversitesi Mimarlık Bölümü 3. sınıf öğrencisiyim. Küçük yaşlarda başlayan mimarlık ilgimi mimari tasarım ve 3D modelleme alanlarında kendimi geliştirerek sürdürüyorum. Öğrenci faaliyetleri aracılığıyla ekip çalışması, organizasyon ve liderlik deneyimi kazandım. Tasarım odaklı düşünceyi teknik becerilerle birleştirerek nitelikli mimari projeler üretmeyi hedefliyorum.",
+        "tabs": {
+            "modeling": "2D / 3D Modelleme",
+            "presentation": "Sunum / Grafik",
+            "visualization": "Görselleştirme"
+        },
+        "levels": {
+            "instructor": "Eğitmen Seviyesi",
+            "advanced": "İleri Seviye",
+            "intermediate": "Orta Seviye",
+            "beginner": "Başlangıç Seviyesi"
+        }
+    }
+}
