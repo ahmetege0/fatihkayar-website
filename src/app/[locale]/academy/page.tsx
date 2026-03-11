@@ -21,7 +21,6 @@ export default function AcademyPage() {
 const styles: Record<string, React.CSSProperties> = {
     main: {
         minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
         display: 'flex',
         flexDirection: 'column',
     },

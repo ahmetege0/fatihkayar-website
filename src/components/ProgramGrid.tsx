@@ -81,14 +81,16 @@ function ProgramCard({ prog }: { prog: Program }) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.35 }}
             style={styles.card}
+            className="pg-card"
         >
-            <div style={{ ...styles.cardIconWrap, borderColor: `${prog.color}33` }}>
+            <div style={{ ...styles.cardIconWrap, borderColor: `${prog.color}33` }} className="pg-icon-wrap">
                 <img
                     src={prog.icon}
                     alt={prog.name}
                     width={32}
                     height={32}
                     style={styles.cardIcon}
+                    className="pg-icon"
                     onError={(e) => {
                         const el = e.currentTarget as HTMLImageElement;
                         el.style.display = 'none';
@@ -102,13 +104,14 @@ function ProgramCard({ prog }: { prog: Program }) {
                         background: prog.color,
                         display: 'none',
                     }}
+                    className="pg-fb"
                 >
                     {prog.name.charAt(0)}
                 </div>
             </div>
-            <p style={styles.cardName}>{prog.name}</p>
+            <p style={styles.cardName} className="pg-card-name">{prog.name}</p>
             <LevelDots level={prog.level} color={prog.color} />
-            <p style={{ ...styles.cardLevel, color: `${prog.color}bb` }}>
+            <p style={{ ...styles.cardLevel, color: `${prog.color}bb` }} className="pg-card-level">
                 {t(prog.level)}
             </p>
         </motion.div>
@@ -121,42 +124,57 @@ export default function ProgramGrid() {
     const activeCategory = CATEGORIES.find((c) => c.key === active)!;
 
     return (
-        <div style={styles.wrapper}>
-            {/* Centered tab bar */}
-            <div style={styles.tabContainer}>
-                <div style={styles.tabs}>
-                    {CATEGORIES.map((cat) => (
-                        <button
-                            key={cat.key}
-                            onClick={() => setActive(cat.key)}
-                            className="font-ibm"
-                            style={{
-                                ...styles.tab,
-                                color: active === cat.key ? 'rgba(240,240,240,0.88)' : 'rgba(240,240,240,0.28)',
-                            }}
-                        >
-                            {t(cat.key)}
-                            {active === cat.key && (
-                                <motion.div
-                                    layoutId="tab-underline"
-                                    style={styles.activeBar}
-                                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                />
-                            )}
-                        </button>
-                    ))}
+        <>
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (max-width: 768px) {
+                    .pg-tabs { flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; }
+                    .pg-tab { padding: 8px 16px !important; font-size: 10px !important; }
+                    .pg-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; gap: 12px !important; }
+                    .pg-card { padding: 20px 12px 16px !important; }
+                    .pg-icon-wrap { width: 46px !important; height: 46px !important; }
+                    .pg-icon { width: 26px !important; height: 26px !important; }
+                    .pg-fb { width: 26px !important; height: 26px !important; font-size: 14px !important; }
+                    .pg-card-name { font-size: 11px !important; }
+                    .pg-card-level { font-size: 9px !important; }
+                }
+            `}} />
+            <div style={styles.wrapper}>
+                {/* Centered tab bar */}
+                <div style={styles.tabContainer}>
+                    <div style={styles.tabs} className="pg-tabs">
+                        {CATEGORIES.map((cat) => (
+                            <button
+                                key={cat.key}
+                                onClick={() => setActive(cat.key)}
+                                className="font-ibm pg-tab"
+                                style={{
+                                    ...styles.tab,
+                                    color: active === cat.key ? 'rgba(240,240,240,0.88)' : 'rgba(240,240,240,0.28)',
+                                }}
+                            >
+                                {t(cat.key)}
+                                {active === cat.key && (
+                                    <motion.div
+                                        layoutId="tab-underline"
+                                        style={styles.activeBar}
+                                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                    />
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Grid */}
+                <div style={styles.grid} className="pg-grid">
+                    <AnimatePresence mode="wait">
+                        {activeCategory.programs.map((prog) => (
+                            <ProgramCard key={`${active}-${prog.name}`} prog={prog} />
+                        ))}
+                    </AnimatePresence>
                 </div>
             </div>
-
-            {/* Grid */}
-            <div style={styles.grid}>
-                <AnimatePresence mode="wait">
-                    {activeCategory.programs.map((prog) => (
-                        <ProgramCard key={`${active}-${prog.name}`} prog={prog} />
-                    ))}
-                </AnimatePresence>
-            </div>
-        </div>
+        </>
     );
 }
 

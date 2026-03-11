@@ -37,9 +37,11 @@ export default async function LocaleLayout({ children, params }: Props) {
                 />
             </head>
             <body>
-                <NextIntlClientProvider messages={messages}>
-                    {children}
-                </NextIntlClientProvider>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <NextIntlClientProvider messages={messages}>
+                        {children}
+                    </NextIntlClientProvider>
+                </div>
             </body>
         </html>
     );

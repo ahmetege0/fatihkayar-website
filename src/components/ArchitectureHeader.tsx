@@ -33,12 +33,32 @@ function ArrowLeftIcon() {
     );
 }
 
+function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            {isOpen ? (
+                <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </>
+            ) : (
+                <>
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </>
+            )}
+        </svg>
+    );
+}
+
 export default function ArchitectureHeader() {
     const t = useTranslations('architecture');
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
     const [tooltip, setTooltip] = useState<string | null>(null);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleLocale = () => {
         const newLocale = locale === 'tr' ? 'en' : 'tr';
@@ -48,54 +68,117 @@ export default function ArchitectureHeader() {
     };
 
     return (
-        <nav style={styles.nav}>
-            {/* LEFT: Back arrow + title + divider + CV text */}
-            <div style={styles.leftGroup}>
-                <Link href={`/${locale}`} style={styles.backBtn} title="Geri">
-                    <ArrowLeftIcon />
-                </Link>
-                <span className="font-ibm" style={styles.title}>
-                    {t('title')}
-                </span>
-            </div>
-
-            {/* RIGHT: CV text + LinkedIn + Portfolio + TR|EN */}
-            <div style={styles.rightSection}>
-                <Link href={`/${locale}/cv`} className="font-helvetica" style={styles.cv}>
-                    {t('cv')}
-                </Link>
-                {/* LinkedIn */}
-                <div
-                    style={{ position: 'relative' }}
-                    onMouseEnter={() => setTooltip('linkedin')}
-                    onMouseLeave={() => setTooltip(null)}
-                >
-                    <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" style={styles.circle as React.CSSProperties}>
-                        <LinkedInIcon />
-                    </a>
-                    {tooltip === 'linkedin' && <div style={styles.tooltip}>LinkedIn</div>}
-                </div>
-
-                {/* Adobe Portfolio */}
-                <div
-                    style={{ position: 'relative' }}
-                    onMouseEnter={() => setTooltip('portfolio')}
-                    onMouseLeave={() => setTooltip(null)}
-                >
-                    <Link href={`/${locale}/portfolio`} style={styles.circle as React.CSSProperties}>
-                        <PortfolioIcon />
+        <>
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (max-width: 768px) {
+                    .arch-nav { 
+                        padding: 16px 20px !important; 
+                        flex-wrap: wrap; 
+                        background: ${menuOpen ? 'rgba(0,0,0,0.85)' : 'transparent'};
+                        backdrop-filter: ${menuOpen ? 'blur(10px)' : 'none'};
+                        -webkit-backdrop-filter: ${menuOpen ? 'blur(10px)' : 'none'};
+                        border-bottom: ${menuOpen ? '1px solid rgba(255,255,255,0.05)' : 'none'};
+                    }
+                    .arch-title { font-size: 16px !important; letter-spacing: 0.08em !important; }
+                    .arch-cv { font-size: 12px !important; }
+                    .arch-circle { width: 36px !important; height: 36px !important; }
+                    .arch-circle svg { width: 16px !important; height: 16px !important; }
+                    .arch-right { gap: 8px !important; }
+                    .arch-left { gap: 10px !important; }
+                    .arch-lang { font-size: 10px !important; padding: 4px !important; letter-spacing: 0.08em !important; }
+                    .desktop-icons { display: none !important; }
+                    .mobile-toggle { display: flex !important; margin-left: 8px; background: none; border: none; color: #fff; cursor: pointer; padding: 4px; }
+                    .mobile-menu { 
+                        display: flex !important; 
+                        width: 100%; 
+                        justify-content: center; 
+                        gap: 16px; 
+                        margin-top: 16px; 
+                        padding-top: 16px; 
+                        border-top: 1px solid rgba(255,255,255,0.1); 
+                        animation: slideDown 0.3s ease;
+                    }
+                }
+                @media (min-width: 769px) {
+                    .desktop-icons { display: flex !important; gap: 14px; align-items: center; }
+                    .mobile-toggle { display: none !important; }
+                    .mobile-menu { display: none !important; }
+                }
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `}} />
+            <nav style={styles.nav} className="arch-nav">
+                {/* LEFT: Back arrow + title + divider + CV text */}
+                <div style={styles.leftGroup} className="arch-left">
+                    <Link href={`/${locale}`} style={styles.backBtn} title="Geri">
+                        <ArrowLeftIcon />
                     </Link>
-                    {tooltip === 'portfolio' && <div style={styles.tooltip}>Adobe Portfolio</div>}
+                    <span className="font-ibm arch-title" style={styles.title}>
+                        {t('title')}
+                    </span>
                 </div>
 
-                {/* TR | EN */}
-                <button onClick={toggleLocale} style={styles.langBtn} className="font-ibm">
-                    <span style={{ opacity: locale === 'tr' ? 1 : 0.35 }}>TR</span>
-                    <span style={styles.langDivider}>|</span>
-                    <span style={{ opacity: locale === 'en' ? 1 : 0.35 }}>EN</span>
-                </button>
-            </div>
-        </nav>
+                {/* RIGHT: CV text + LinkedIn + Portfolio + TR|EN */}
+                <div style={styles.rightSection} className="arch-right">
+                    <a href="/FatihBuğraKayar_CV.pdf" target="_blank" rel="noopener noreferrer" className="font-helvetica arch-cv" style={styles.cv}>
+                        {t('cv')}
+                    </a>
+                    
+                    {/* Desktop icons */}
+                    <div className="desktop-icons">
+                        {/* LinkedIn */}
+                        <div
+                            style={{ position: 'relative' }}
+                            onMouseEnter={() => setTooltip('linkedin')}
+                            onMouseLeave={() => setTooltip(null)}
+                        >
+                            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" style={styles.circle as React.CSSProperties} className="arch-circle">
+                                <LinkedInIcon />
+                            </a>
+                            {tooltip === 'linkedin' && <div style={styles.tooltip}>LinkedIn</div>}
+                        </div>
+
+                        {/* Adobe Portfolio */}
+                        <div
+                            style={{ position: 'relative' }}
+                            onMouseEnter={() => setTooltip('portfolio')}
+                            onMouseLeave={() => setTooltip(null)}
+                        >
+                            <Link href={`/${locale}/portfolio`} style={styles.circle as React.CSSProperties} className="arch-circle">
+                                <PortfolioIcon />
+                            </Link>
+                            {tooltip === 'portfolio' && <div style={styles.tooltip}>Adobe Portfolio</div>}
+                        </div>
+                    </div>
+
+                    {/* TR | EN */}
+                    <button onClick={toggleLocale} style={styles.langBtn} className="font-ibm arch-lang">
+                        <span style={{ opacity: locale === 'tr' ? 1 : 0.35 }}>TR</span>
+                        <span style={styles.langDivider}>|</span>
+                        <span style={{ opacity: locale === 'en' ? 1 : 0.35 }}>EN</span>
+                    </button>
+                    
+                    {/* Hamburger Toggle */}
+                    <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-toggle">
+                        <HamburgerIcon isOpen={menuOpen} />
+                    </button>
+                </div>
+
+                {/* Mobile Menu Bar */}
+                {menuOpen && (
+                    <div className="mobile-menu">
+                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" style={styles.circle as React.CSSProperties} className="arch-circle">
+                            <LinkedInIcon />
+                        </a>
+                        <Link href={`/${locale}/portfolio`} style={styles.circle as React.CSSProperties} className="arch-circle" onClick={() => setMenuOpen(false)}>
+                            <PortfolioIcon />
+                        </Link>
+                    </div>
+                )}
+            </nav>
+        </>
     );
 }
 

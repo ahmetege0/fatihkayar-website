@@ -34,7 +34,6 @@ function PortfolioContent({ locale }: { locale: string }) {
 const styles: Record<string, React.CSSProperties> = {
     main: {
         minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

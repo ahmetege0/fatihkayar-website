@@ -15,57 +15,54 @@ function CVContent({ locale }: { locale: string }) {
 
     return (
         <main style={styles.main}>
-            <div style={styles.container}>
-                <p style={styles.subtitle} className="font-ibm">
-                    {t('title')}
-                </p>
-                <h1 className="font-helvetica" style={styles.title}>
-                    {t('status')}
-                </h1>
-                <div style={styles.line} />
-                <Link href={`/${locale}`} style={styles.back} className="font-ibm">
-                    {t('back')}
-                </Link>
-            </div>
+            {/* Overlay back button */}
+            <Link href={`/${locale}/architecture`} style={styles.backBtn} className="font-ibm">
+                {t('back')}
+            </Link>
+            
+            <object 
+                data="/FatihBuğraKayar_CV.pdf#toolbar=0" 
+                type="application/pdf"
+                style={styles.iframe}
+            >
+                <iframe 
+                    src="/FatihBuğraKayar_CV.pdf#toolbar=0" 
+                    style={styles.iframe}
+                    title="CV"
+                >
+                    <p>It appears your browser does not have a PDF plugin. <a href="/FatihBuğraKayar_CV.pdf">Click here to download the PDF file.</a></p>
+                </iframe>
+            </object>
         </main>
     );
 }
 
 const styles: Record<string, React.CSSProperties> = {
     main: {
-        minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: '100%',
+        height: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
     },
-    container: {
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '28px',
-    },
-    subtitle: {
-        fontSize: '12px',
-        letterSpacing: '0.3em',
-        color: 'rgba(240,240,240,0.35)',
-        textTransform: 'uppercase',
-    },
-    title: {
-        fontSize: 'clamp(36px, 6vw, 80px)',
-        letterSpacing: '0.08em',
-        color: 'rgba(240,240,240,0.85)',
-    },
-    line: {
-        width: '40px',
-        height: '1px',
-        background: 'rgba(240,240,240,0.2)',
-    },
-    back: {
-        fontSize: '12px',
-        letterSpacing: '0.15em',
-        color: 'rgba(240,240,240,0.4)',
+    backBtn: {
+        position: 'absolute',
+        top: '24px',
+        left: '24px',
+        zIndex: 10,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        padding: '8px 16px',
+        borderRadius: '8px',
+        color: '#fff',
         textDecoration: 'none',
+        fontSize: '12px',
+        letterSpacing: '0.1em',
+        border: '1px solid rgba(255,255,255,0.2)',
+        backdropFilter: 'blur(4px)',
+        WebkitBackdropFilter: 'blur(4px)',
     },
+    iframe: {
+        width: '100%',
+        height: '100%',
+        border: 'none',
+    }
 };
