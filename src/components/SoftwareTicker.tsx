@@ -23,6 +23,7 @@ const SOFTWARE: Software[] = [
     { id: 'enscape', name: 'Enscape', icon: '/icons/enscape.png', color: '#00C48C' },
     { id: 'twinmotion', name: 'Twinmotion', icon: '/icons/twinmotion.png', color: '#00BFFF' },
     { id: 'd5render', name: 'D5 Render', icon: '/icons/d5render.png', color: '#A855F7' },
+    { id: 'Suapp', name: 'Suapp', icon: '/icons/suapp.png', color: '#F16529' },
 ];
 
 // Triple-duplicate for seamless infinite feel
@@ -83,7 +84,8 @@ export default function SoftwareTicker() {
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @media (max-width: 768px) {
                     .ticker-pill { padding: 4px 12px 4px 4px !important; gap: 8px !important; }
                     .ticker-icon-wrap { width: 24px !important; height: 24px !important; border-radius: 8px !important; }
