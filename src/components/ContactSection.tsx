@@ -30,7 +30,7 @@ export default function ContactSection() {
         }
         : {
             heading: 'Get in Touch',
-            subheading: "As an architecture student, you can contact me to discuss internship opportunities and projects.",
+            subheading: "I’m currently seeking architecture internship opportunities. Feel free to reach out to discuss projects, collaborations, or ideas.",
             subjectPlaceholder: 'Subject',
             messagePlaceholder: 'Your message...',
             send: 'Send',
