@@ -26,7 +26,7 @@ const CATEGORIES: Category[] = [
             { name: 'AutoCAD', level: 'advanced', icon: '/icons/autocad.png', color: '#CC0000' },
             { name: 'Revit', level: 'intermediate', icon: '/icons/revit.png', color: '#4A90D9' },
             { name: 'Rhino + Grasshopper', level: 'intermediate', icon: '/icons/rhino.png', color: '#888888' },
-            { name: '3ds Max', level: 'beginner', icon: '/icons/3dsmax.png', color: '#0696D7' },
+            { name: '3ds Max', level: 'intermediate', icon: '/icons/3dsmax.png', color: '#0696D7' },
         ],
     },
     {
@@ -44,6 +44,7 @@ const CATEGORIES: Category[] = [
             { name: 'Enscape', level: 'advanced', icon: '/icons/enscape.png', color: '#00C48C' },
             { name: 'Twinmotion', level: 'intermediate', icon: '/icons/twinmotion.png', color: '#00BFFF' },
             { name: 'D5 Render', level: 'intermediate', icon: '/icons/d5render.png', color: '#A855F7' },
+            { name: 'Suapp AI', level: 'intermediate', icon: '/icons/suapp.png', color: '#F16529' },
         ],
     },
 ];
@@ -53,6 +54,13 @@ const LEVEL_BARS: Record<Level, number> = {
     advanced: 3,
     intermediate: 2,
     beginner: 1,
+};
+
+const LEVEL_COLORS: Record<Level, string> = {
+    instructor: '#E83A3A',   // Red
+    advanced: '#FF9A00',     // Orange
+    intermediate: '#31A8FF', // Blue
+    beginner: '#888888',     // Gray
 };
 
 function LevelDots({ level, color }: { level: Level; color: string }) {
@@ -74,6 +82,8 @@ function LevelDots({ level, color }: { level: Level; color: string }) {
 
 function ProgramCard({ prog }: { prog: Program }) {
     const t = useTranslations('architecture.levels');
+    const levelColor = LEVEL_COLORS[prog.level];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -83,7 +93,7 @@ function ProgramCard({ prog }: { prog: Program }) {
             style={styles.card}
             className="pg-card"
         >
-            <div style={{ ...styles.cardIconWrap, borderColor: `${prog.color}33` }} className="pg-icon-wrap">
+            <div style={{ ...styles.cardIconWrap, borderColor: `${levelColor}33` }} className="pg-icon-wrap">
                 <img
                     src={prog.icon}
                     alt={prog.name}
@@ -101,7 +111,7 @@ function ProgramCard({ prog }: { prog: Program }) {
                 <div
                     style={{
                         ...styles.fbLetter,
-                        background: prog.color,
+                        background: levelColor,
                         display: 'none',
                     }}
                     className="pg-fb"
@@ -110,8 +120,8 @@ function ProgramCard({ prog }: { prog: Program }) {
                 </div>
             </div>
             <p style={styles.cardName} className="pg-card-name">{prog.name}</p>
-            <LevelDots level={prog.level} color={prog.color} />
-            <p style={{ ...styles.cardLevel, color: `${prog.color}bb` }} className="pg-card-level">
+            <LevelDots level={prog.level} color={levelColor} />
+            <p style={{ ...styles.cardLevel, color: levelColor }} className="pg-card-level">
                 {t(prog.level)}
             </p>
         </motion.div>
@@ -125,12 +135,13 @@ export default function ProgramGrid() {
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @media (max-width: 768px) {
                     .pg-tabs { flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; }
                     .pg-tab { padding: 8px 16px !important; font-size: 10px !important; }
-                    .pg-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; gap: 12px !important; }
-                    .pg-card { padding: 20px 12px 16px !important; }
+                    .pg-grid { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 12px !important; }
+                    .pg-card { padding: 20px 12px 16px !important; width: 140px !important; }
                     .pg-icon-wrap { width: 46px !important; height: 46px !important; }
                     .pg-icon { width: 26px !important; height: 26px !important; }
                     .pg-fb { width: 26px !important; height: 26px !important; font-size: 14px !important; }
@@ -166,7 +177,13 @@ export default function ProgramGrid() {
                 </div>
 
                 {/* Grid */}
-                <div style={styles.grid} className="pg-grid">
+                <div 
+                    style={{ 
+                        ...styles.grid,
+                        gridTemplateColumns: `repeat(${Math.min(activeCategory.programs.length, 5)}, 180px)`
+                    }} 
+                    className="pg-grid"
+                >
                     <AnimatePresence mode="wait">
                         {activeCategory.programs.map((prog) => (
                             <ProgramCard key={`${active}-${prog.name}`} prog={prog} />
@@ -214,9 +231,9 @@ const styles: Record<string, React.CSSProperties> = {
     },
     grid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
+        justifyContent: 'center',
         gap: '16px',
-        maxWidth: '800px',
+        maxWidth: '1000px',
         margin: '0 auto',
     },
     card: {

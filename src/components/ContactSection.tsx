@@ -20,24 +20,24 @@ export default function ContactSection() {
     const labels = locale === 'tr'
         ? {
             heading: 'İletişime Geç',
-            subheading: 'Seninle konuşmak isterim.',
+            subheading: 'Mimarlık öğrencisi olarak staj fırsatları ve projeler hakkında konuşmak için benimle iletişime geçebilirsiniz.',
             subjectPlaceholder: 'Konu',
             messagePlaceholder: 'Mesajın...',
             send: 'Gönder',
             sending: 'Gönderiliyor...',
             sent: 'Mesaj iletildi ✓',
             error: 'Bir hata oluştu. Tekrar dene.',
-          }
+        }
         : {
             heading: 'Get in Touch',
-            subheading: "I'd love to hear from you.",
+            subheading: "As an architecture student, you can contact me to discuss internship opportunities and projects.",
             subjectPlaceholder: 'Subject',
             messagePlaceholder: 'Your message...',
             send: 'Send',
             sending: 'Sending...',
             sent: 'Message sent ✓',
             error: 'Something went wrong. Try again.',
-          };
+        };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
